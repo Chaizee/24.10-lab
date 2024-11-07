@@ -120,4 +120,90 @@ class Program
 
 //определить положение элементов минимакса
 
-    
+using System.Linq.Expressions;
+
+class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Введите размеры массива");
+        int n = int.Parse(Console.ReadLine());
+        int m = int.Parse(Console.ReadLine());
+        
+        int[,] mus = new int[n, m];
+
+        Console.WriteLine("Введите элементы массива");
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                mus[i, j] = int.Parse(Console.ReadLine());
+            }
+        }
+        Console.WriteLine();
+        bool ElemExist1 = false;
+        bool ElemExist2 = false;
+        for (int i = 0; i < n; i++)
+        {
+            int minstr = int.MaxValue;
+            int maxstr = int.MinValue;
+            for (int j = 0; j < m; j++)
+            {
+                if (mus[i, j] < minstr)
+                {
+                    minstr = mus[i, j];
+                }
+                if  (mus[i, j] > maxstr)
+                {
+                    maxstr = mus[i, j];
+                }
+            }
+            
+            for (int k = 0; k < m; k++)
+            {
+                int maxstl = int.MinValue;
+                int minstl = int.MaxValue;
+                for (int l = 0; l < n; l++)
+                {
+                    if (mus[l, k] > maxstl)
+                    {
+                        maxstl = mus[l, k];
+                    }
+                    if (mus[l, k] < minstl)
+                    {
+                        minstl = mus[l, k];
+                    }
+                }
+                if (minstr == maxstl)
+                {
+                    if (!ElemExist1)
+                    {
+                        Console.WriteLine("Положение элемента(ов) минимального(ых) в строке и максимального(ых) в столбце:");
+                        ElemExist1 = true;
+                    }
+                    Console.WriteLine($"({i + 1};{k + 1})");
+                }  
+                if (maxstr == minstl)
+                {
+                    if (!ElemExist2)
+                    {
+                        Console.WriteLine("Положение элемента(ов) максимального(ых) в строке и минимального(ых) в столбце:");
+                        ElemExist2 = true;
+                    }
+                    Console.WriteLine($"({i + 1};{k + 1})");
+                }
+            }
+
+        }
+        if (!ElemExist1)
+        {
+
+            Console.WriteLine("не существует элемента минимального в строке и максимального в столбце");
+        }
+        if (!ElemExist2)
+        {
+
+            Console.WriteLine("не существует элемента максимального в строке и минимального в столбце");
+        }
+    }
+}
